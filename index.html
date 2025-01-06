@@ -148,6 +148,7 @@
       <div id="timezoneLabel">Moscow Time Zone</div>
       <div id="timeDisplay"></div>
       <div id="currentDate"></div>
+      <div id="currentTime"></div> <!-- Display current time -->
     </div>
 
     <!-- Task List Section -->
@@ -157,7 +158,7 @@
     <!-- Export Buttons -->
     <div class="mt-4 text-center">
       <button class="btn btn-secondary" onclick="exportTasks()">Export Excel</button>
-      <button class="btn btn-secondary" onclick="exportText()">Export as Text</button>
+      <button class="btn btn-secondary" onclick="exportText()">Export as Plain Text</button>
       <button class="btn btn-secondary" onclick="exportJSON()">Export as JSON</button>
     </div>
   </div>
@@ -320,6 +321,17 @@
       link.download = `${userId}_tasks.json`;
       link.click();
     }
+    
+    // Update the current time every second
+    function updateCurrentTime() {
+      const now = new Date();
+      const time = now.toLocaleTimeString();
+      document.getElementById("currentTime").textContent = `Current Time: ${time}`;
+    }
+
+    // Call updateCurrentTime every second to update the time display
+    setInterval(updateCurrentTime, 1000);
+
 
     // Load tasks on page load
     loadTasks();
