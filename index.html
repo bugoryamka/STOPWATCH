@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- Bootstrap CSS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
 
   <!-- Include the xlsx library -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -17,9 +18,9 @@
   <!-- Custom CSS -->
   <style>
     body {
-      background-color: #FFFFFF;
+      background-color: #f4f4f9; /* Soft background */
       font-family: 'Inter', sans-serif;
-      color: #333333;
+      color: #333;
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -28,106 +29,109 @@
     }
 
     .container {
-      background-color: #FFFFFF;
+      background-color: #ffffff;
       padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
       max-width: 600px;
       width: 100%;
       text-align: center;
     }
 
     h1 {
-      color: #333333;
       font-size: 2rem;
       font-weight: 700;
-      text-align: center;
+      color: #4e4e6f;
       margin-bottom: 20px;
     }
 
     #stopwatchDisplay {
       font-size: 3rem;
       font-weight: 700;
-      color: #333333;
-      text-align: center;
+      color: #4e4e6f;
       margin: 20px 0;
       transition: color 0.3s ease;
     }
 
     #stopwatchDisplay.running {
-      color: #007BFF;
+      color: #394eff;
     }
 
-    #timeDisplay, #currentDate, #timezoneLabel {
-      text-align: center;
+    #timeDisplay,
+    #currentDate {
       margin: 10px 0;
+      font-size: 1.2rem;
       color: #666666;
-    }
-
-    #timezoneLabel {
-      font-weight: 500;
-      color: #333333;
     }
 
     .btn {
       font-size: 1rem;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 8px;
       border: none;
       cursor: pointer;
-      background-color: #394FFF;
-      color: #FAF7F7;
-      transition: background-color 0.3s ease;
+      background-color: #ff5a5f;
+      color: #ffffff;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
 
     .btn:hover {
-      background-color: #FF3232;
+      background-color: #ff3b42;
+      transform: translateY(-2px);
     }
 
     .btn-secondary {
-      background-color: #000000;
+      background-color: #333;
     }
 
     .btn-secondary:hover {
-      background-color: #333333;
+      background-color: #444;
     }
 
     #taskList {
       margin-top: 20px;
+      text-align: left;
     }
 
     .list-group-item {
-      background-color: #FFFFFF;
-      border: 1px solid #DDDDDD;
-      margin-bottom: 10px;
+      background-color: #ffffff;
+      border: 1px solid #ececec;
       border-radius: 8px;
-      padding: 10px;
-      color: #333333;
-      font-size: 0.9rem;
+      padding: 15px;
+      color: #333;
+      font-size: 1rem;
+      margin-bottom: 15px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .list-group-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .list-group-item button {
+      background-color: #ff3232;
+      border: none;
+      color: white;
+      font-size: 0.9rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .list-group-item button:hover {
+      background-color: #d32f2f;
     }
 
     #userIdSection {
-      display: none; /* Hide the user ID input field */
-    }
-
-    .delete-btn {
-      background-color: #FF3232;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      padding: 5px 10px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .delete-btn:hover {
-      background-color: #ff1a1a;
+      display: none;
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Stopwatch</h1>
@@ -140,7 +144,7 @@
     <!-- Stopwatch Section -->
     <div class="text-center">
       <div id="stopwatchDisplay">00:00:00</div>
-      <button class="btn btn-primary" id="toggleButton" onclick="toggleStopwatch(this)">Start Stopwatch</button>
+      <button class="btn btn-primary" id="toggleButton" onclick="toggleStopwatch(this)">Start</button>
     </div>
 
     <!-- Right-side Section for Time and Date -->
@@ -148,7 +152,6 @@
       <div id="timezoneLabel">Moscow Time Zone</div>
       <div id="timeDisplay"></div>
       <div id="currentDate"></div>
-      <div id="currentTime"></div> <!-- Display current time -->
     </div>
 
     <!-- Task List Section -->
@@ -157,9 +160,9 @@
 
     <!-- Export Buttons -->
     <div class="mt-4 text-center">
-      <button class="btn btn-secondary" onclick="exportTasks()">Export Excel</button>
-      <button class="btn btn-secondary" onclick="exportText()">Export as Plain Text</button>
-      <button class="btn btn-secondary" onclick="exportJSON()">Export as JSON</button>
+      <button class="btn btn-secondary" onclick="exportTasks()">Excel</button>
+      <button class="btn btn-secondary" onclick="exportText()">Text</button>
+      <button class="btn btn-secondary" onclick="exportJSON()">JSON</button>
     </div>
   </div>
 
@@ -176,9 +179,7 @@
     let startWorldTime;
     let activities = [];
     let userId = localStorage.getItem("userId") || generateNewId(); // Fetch user ID from localStorage or generate a new one
-
-    // Display the User ID to the user (hidden)
-    console.log("User ID: ", userId); // For debugging
+    let resetTimeout;
 
     // Generate a unique ID (if not already present in localStorage)
     function generateNewId() {
@@ -211,20 +212,10 @@
         activityItem.classList.add("list-group-item");
         activityItem.innerHTML = `
           ${index + 1}. ${activity.activity} - Duration: ${activity.duration} | Start: ${activity.start_time} | End: ${activity.end_time} | Date: ${activity.date}
-          <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>
+          <button onclick="deleteTask(${index})">Delete</button>
         `;
         taskListContainer.appendChild(activityItem);
       });
-    }
-
-    // Delete a task
-    function deleteTask(index) {
-      // Remove the task from the activities array
-      activities.splice(index, 1);
-      // Save the updated tasks back to localStorage
-      saveTasks();
-      // Re-render the task list
-      updateTaskList();
     }
 
     // Start or stop the stopwatch
@@ -234,15 +225,22 @@
         isRunning = false;
         elapsedTime = Date.now() - startTime;
         endTime = Date.now();
-        button.textContent = "Start Stopwatch";
+        button.textContent = "Start";
         document.getElementById("stopwatchDisplay").classList.remove("running");
+
+        // Show prompt for task name and start reset timer
         showTaskNameModal();
+
+        // Set timeout to reset if no input is provided
+        resetTimeout = setTimeout(() => {
+          resetStopwatch(); // Just reset without alert
+        }, 10000); // 10 seconds timeout
       } else {
         // Start the stopwatch
         startWorldTime = new Date();
         startTime = Date.now() - elapsedTime;
         isRunning = true;
-        button.textContent = "Stop Stopwatch";
+        button.textContent = "Stop";
         document.getElementById("stopwatchDisplay").classList.add("running");
         runStopwatch();
       }
@@ -271,22 +269,51 @@
     // Show modal to enter task name
     function showTaskNameModal() {
       let taskName = prompt("Enter the task name:");
+      clearTimeout(resetTimeout); // Clear timeout if input is received
       if (taskName) {
         saveTask(taskName);
+      } else {
+        resetStopwatch(); // Reset if no task name is entered
       }
     }
 
     // Save the task after completion
     function saveTask(taskName) {
-      const duration = (endTime - startTime) / 1000;
+      const durationInSeconds = (endTime - startTime) / 1000;
+      const formattedDuration = formatDuration(durationInSeconds);
       const task = {
         activity: taskName,
-        duration: duration,
+        duration: formattedDuration, // Use formatted duration
         start_time: new Date(startTime).toLocaleTimeString(),
         end_time: new Date(endTime).toLocaleTimeString(),
         date: new Date(startWorldTime).toLocaleDateString(),
       };
       activities.push(task);
+      saveTasks();
+      updateTaskList();
+
+      // Reset Stopwatch for the next task
+      resetStopwatch();
+    }
+
+    // Format duration into HH:MM:SS
+    function formatDuration(seconds) {
+      let hours = Math.floor(seconds / 3600);
+      let minutes = Math.floor((seconds % 3600) / 60);
+      let secondsLeft = seconds % 60;
+      return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${secondsLeft.toString().padStart(2, "0")}`;
+    }
+
+    // Reset the stopwatch for the next task
+    function resetStopwatch() {
+      elapsedTime = 0;
+      startTime = 0;
+      document.getElementById("stopwatchDisplay").textContent = "00:00:00";
+    }
+
+    // Delete a task from the list
+    function deleteTask(index) {
+      activities.splice(index, 1); // Remove task at the given index
       saveTasks();
       updateTaskList();
     }
@@ -302,7 +329,7 @@
     // Export tasks as plain text
     function exportText() {
       const text = activities.map(activity => 
-        `${activity.activity} - Duration: ${activity.duration}s | Start: ${activity.start_time} | End: ${activity.end_time} | Date: ${activity.date}`
+        `${activity.activity} - Duration: ${activity.duration} | Start: ${activity.start_time} | End: ${activity.end_time} | Date: ${activity.date}`
       ).join("\n");
 
       const blob = new Blob([text], { type: "text/plain" });
@@ -321,20 +348,10 @@
       link.download = `${userId}_tasks.json`;
       link.click();
     }
-    
-    // Update the current time every second
-    function updateCurrentTime() {
-      const now = new Date();
-      const time = now.toLocaleTimeString();
-      document.getElementById("currentTime").textContent = `Current Time: ${time}`;
-    }
-
-    // Call updateCurrentTime every second to update the time display
-    setInterval(updateCurrentTime, 1000);
-
 
     // Load tasks on page load
     loadTasks();
   </script>
 </body>
+
 </html>
