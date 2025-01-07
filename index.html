@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stopwatch</title>
+  <title>Stopwatch with Time and Date</title>
   <link rel="icon" type="image/svg+xml" href="icon.svg">
+
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Roboto:wght@400;500;700&family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -48,7 +49,7 @@
     #stopwatchDisplay {
       font-size: 3rem;
       font-weight: 700;
-      color: #4e4e6f;
+      color: #353535;
       margin: 20px 0;
       transition: color 0.3s ease;
     }
@@ -94,6 +95,16 @@
     .btn:hover {
       background-color: #ff3b42;
       transform: translateY(-2px);
+    }
+
+    .btn:focus {
+      outline: none; /* Remove the default focus outline */
+      box-shadow: none; /* Remove the blue box shadow */
+    }
+
+    .btn:active {
+      background-color: #ff5a5f !important; /* Force red color when the button is held down */
+      border-color: #ff5a5f !important; /* Ensure the border color matches */
     }
 
     .btn-secondary {
@@ -150,9 +161,9 @@
 
 <body>
   <div class="container">
-   
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <h1>Stopwatch</h1>
-
+    
     <!-- User ID Section (hidden) -->
     <div id="userIdSection" class="text-center">
       <input type="text" id="userIdInput" class="form-control mb-3" placeholder="Your unique ID" readonly>
