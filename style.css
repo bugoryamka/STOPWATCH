@@ -1,7 +1,150 @@
-html, body {
+body {
+  background-color: #fff;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  color: #2e2e2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   margin: 0;
   padding: 0;
 }
-canvas {
-  display: block;
+
+.container {
+  background-color: #fff;
+  padding: 40px 50px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.container:hover {
+  transform: translateY(-5px);
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#stopwatchDisplay {
+  font-size: 4rem;
+  font-weight: 700;
+  color: #333;
+  margin: 20px 0;
+  transition: color 0.3s ease;
+}
+
+#stopwatchDisplay.running {
+  color: #f79c42; /* Orange color for running stopwatch */
+}
+
+.btn {
+  font-size: 1.2rem;
+  padding: 14px 30px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background-color: #f79c42; /* Orange primary button color */
+  color: #fff;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #e67e22; /* Darker orange when hovered */
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background-color: #e74c3c; /* Red button color */
+}
+
+.btn-secondary:hover {
+  background-color: #c0392b; /* Darker red when hovered */
+}
+
+#taskList {
+  margin-top: 30px;
+  text-align: left;
+}
+
+.list-group-item {
+  background-color: #fff;
+  border: 1px solid #ececec;
+  border-radius: 8px;
+  padding: 20px;
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s ease;
+}
+
+.list-group-item:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.list-group-item button {
+  background-color: #f44336; /* Red for delete button */
+  border: none;
+  color: white;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.list-group-item button:hover {
+  background-color: #e53935;
+}
+
+#timezoneLabel {
+  font-size: 1.2rem;
+  font-weight: 200;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+#timeDisplay, #currentDate {
+  font-size: 1.2rem;  /* Increase font size for better visibility */
+  color: #555;        /* Darken the color for consistency */
+  margin: 8px 0;      /* Slightly reduced margin */
+}
+
+#userIdSection {
+  display: none;
+}
+
+.export-btn {
+  font-size: 0.9rem; /* Smaller font for export buttons */
+  padding: 8px 20px; /* Smaller padding */
+  margin: 5px;
+  border-radius: 6px;
+  background-color: #f79c42; /* Orange for export buttons */
+  color: #fff;
+}
+
+.export-btn:hover {
+  background-color: #e67e22; /* Darker orange when hovered */
+}
+
+/* Optional: To make all export buttons appear in one row */
+.export-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Same style as the Moscow Time Zone label */
+#timezoneLabel, #timeDisplay, #currentDate {
+  font-size: 1.2rem;  /* Matching font size with buttons and header text */
+  color: #555;        /* Darker text color for better readability */
+  margin: 8px 0;      /* Slightly reduced margin */
 }
